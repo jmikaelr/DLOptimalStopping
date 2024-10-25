@@ -18,18 +18,14 @@ $$
 where $K$ is the strike price.
 
 Given the stochastic process $S_t$ of the underlying asset, the option value $V(t, S_t)$ can be formulated by solving the optimal stopping problem:
-$$
-V(t, S_t) = \sup_{\tau \in [t, T]} \mathbb{E} \left[ e^{-r(\tau - t)} \Phi(S_{\tau}) \mid S_t \right]
-$$
+$$V(t, S_t) = \sup_{\tau \in [t, T]} \mathbb{E} \left[ e^{-r(\tau - t)} \Phi(S_{\tau}) \mid S_t \right]$$
 
 Here, $r$ is the risk-free interest rate, and $\tau$ is the stopping time chosen to maximize the payoff. By backward induction through Monte Carlo paths, we estimate the continuation value at each step, approximating the optimal stopping rule.
 
 ### Monte Carlo Simulation of the Price Process
 
 The underlying price dynamics are simulated using a discretized Euler scheme for a Geometric Brownian Motion:
-$$
-S_{t+1} = S_t \exp\left((r - \frac{\sigma^2}{2}) \Delta t + \sigma \sqrt{\Delta t} \, Z_t \right)
-$$
+$$S_{t+1} = S_t \exp\left((r - \frac{\sigma^2}{2}) \Delta t + \sigma \sqrt{\Delta t} \, Z_t \right)$$
 where:
 - $r$ = risk-free rate
 - $\sigma$ = volatility of the underlying asset
@@ -46,40 +42,6 @@ The optimal stopping rule is approximated using a neural network with a reinforc
 3. **Output Layer**: Produces an estimate of the stopping rule, where each node represents a time step.
 
 The training optimizes the expected payoff using gradient-based optimization (e.g., Adam optimizer), updating weights to improve stopping rule accuracy.
-
----
-
-## Getting Started
-
-### Requirements
-
-To run this project, you will need the following libraries:
-- Python 3.8+
-- `torch` for deep learning
-- `numpy` and `pandas` for numerical operations and data handling
-- `psutil` and `threading` for memory monitoring and threading
-
-Install the required packages with:
-```bash
-pip install torch numpy pandas psutil
-```
-
-### Running the Code
-
-1. **Simulation Parameters**: Adjust simulation parameters, such as `s0`, `sigma`, `r`, `dividend`, `correlation`, `strike`, `t_mat`, and dimensions `d` in the `main()` function.
-
-2. **Execution**: Run the project as a Python script to perform the Monte Carlo simulations and neural network training:
-   ```bash
-   python optimal_stopping.py
-   ```
-
-3. **Output**: Results, including the estimated option price, runtime, and peak memory usage, will be displayed and saved to `american_put_results.csv`.
-
----
-
-## Results
-
-After training, the neural network outputs an approximate option price, representing the average payoff for optimal stopping over multiple Monte Carlo simulations. The results are stored in a `.csv` file with detailed performance metrics.
 
 ---
 
