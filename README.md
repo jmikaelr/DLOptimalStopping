@@ -11,30 +11,30 @@ The deep learning approach to American option pricing addresses the challenges a
 
 ## Mathematical Background
 
-The primary objective is to find the optimal stopping time \(\tau\) that maximizes the expected payoff \(E[e^{-r \tau} \Phi(S_{\tau})]\), where \(S_t\) is the underlying asset price, and \(\Phi\) is the payoff function of the option. For an American put option, the payoff function is defined as:
-\[
+The primary objective is to find the optimal stopping time $\tau$ that maximizes the expected payoff $E[e^{-r \tau} \Phi(S_{\tau})]$, where $S_t$ is the underlying asset price, and $\Phi$ is the payoff function of the option. For an American put option, the payoff function is defined as:
+$$
 \Phi(S_t) = \max(K - S_t, 0)
-\]
-where \(K\) is the strike price.
+$$
+where $K$ is the strike price.
 
-Given the stochastic process \(S_t\) of the underlying asset, the option value \(V(t, S_t)\) can be formulated by solving the optimal stopping problem:
-\[
+Given the stochastic process $S_t$ of the underlying asset, the option value $V(t, S_t)$ can be formulated by solving the optimal stopping problem:
+$$
 V(t, S_t) = \sup_{\tau \in [t, T]} \mathbb{E} \left[ e^{-r(\tau - t)} \Phi(S_{\tau}) \mid S_t \right]
-\]
+$$
 
-Here, \(r\) is the risk-free interest rate, and \(\tau\) is the stopping time chosen to maximize the payoff. By backward induction through Monte Carlo paths, we estimate the continuation value at each step, approximating the optimal stopping rule.
+Here, $r$ is the risk-free interest rate, and $\tau$ is the stopping time chosen to maximize the payoff. By backward induction through Monte Carlo paths, we estimate the continuation value at each step, approximating the optimal stopping rule.
 
 ### Monte Carlo Simulation of the Price Process
 
 The underlying price dynamics are simulated using a discretized Euler scheme for a Geometric Brownian Motion:
-\[
+$$
 S_{t+1} = S_t \exp\left((r - \frac{\sigma^2}{2}) \Delta t + \sigma \sqrt{\Delta t} \, Z_t \right)
-\]
+$$
 where:
-- \(r\) = risk-free rate
-- \(\sigma\) = volatility of the underlying asset
-- \(\Delta t\) = time step size
-- \(Z_t\) = i.i.d. standard normal random variables.
+- $r$ = risk-free rate
+- $\sigma$ = volatility of the underlying asset
+- $\Delta t$ = time step size
+- $Z_t$ = i.i.d. standard normal random variables.
 
 The Cholesky decomposition is applied to handle correlated underlying assets for multi-dimensional cases.
 
