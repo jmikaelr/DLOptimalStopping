@@ -12,9 +12,7 @@ The deep learning approach to American option pricing addresses the challenges a
 ## Mathematical Background
 
 The primary objective is to find the optimal stopping time $\tau$ that maximizes the expected payoff $E[e^{-r \tau} \Phi(S_{\tau})]$, where $S_t$ is the underlying asset price, and $\Phi$ is the payoff function of the option. For an American put option, the payoff function is defined as:
-$$
-\Phi(S_t) = \max(K - S_t, 0)
-$$
+$$\Phi(S_t) = \max(K - S_t, 0)$$
 where $K$ is the strike price.
 
 Given the stochastic process $S_t$ of the underlying asset, the option value $V(t, S_t)$ can be formulated by solving the optimal stopping problem:
